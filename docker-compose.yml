@@ -1,0 +1,42 @@
+version: '3'
+services:
+  snipe:
+    image: snipe/snipe-it
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_PORT_3306_TCP_ADDR: mysql
+      MYSQL_PORT_3306_TCP_PORT: 3306
+      MYSQL_DATABASE: snipeit
+      MYSQL_USER: snipeit
+      MYSQL_PASSWORD: snipeit
+      APP_ENV: production
+      APP_DEBUG: 'false'
+      APP_URL: http://localhost:8888
+      APP_TIMEZONE: US/Pacific
+      APP_LOCALE: en
+      APP_KEY: base64:E0EpeyB6hLvdXq3Wpx9U175fMXnh+z4ugNCWteWARZk=
+    ports:
+      - 8888:80
+
+  mysql:
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: snipeit
+      MYSQL_USER: snipeit
+      MYSQL_PASSWORD: snipeit
+    volumes:
+      - db:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes: 
+  db:
+   
+
